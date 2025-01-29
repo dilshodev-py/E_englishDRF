@@ -1,0 +1,24 @@
+ABDUVORIS:
+    random son generate qilinadi va email ga habar yuboradigan function yozilsin !
+
+DONIYOR:
+    User model override
+    POST /auth/forgot-password
+    POST /auth/verify-otp
+
+
+BEKZOD:
+    POST /auth/reset-password
+
+
+
+
+
+BEHRUZ:
+    POST : /auth/sign-up
+
+
+OZODBEK:
+    POST : /auth/login
+
+
