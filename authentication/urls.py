@@ -1,8 +1,9 @@
 from django.urls import path
+
+
 from authentication.views import PasswordResetView
 
 from django.urls import path
-
 
 from django.urls import path
 

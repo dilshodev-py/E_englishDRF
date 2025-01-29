@@ -4,7 +4,8 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
-from rest_framework.fields import EmailField, IntegerField, CharField
+from rest_framework.fields import CharField
+from rest_framework.fields import EmailField, IntegerField
 from rest_framework.serializers import Serializer
 
 from authentication.models import User
@@ -14,6 +15,11 @@ class PasswordResetSerializer(serializers.Serializer):
     email = EmailField(required=True)
     password = CharField(required=True)
     confirm_password = CharField(required=True)
+
+    def validate_email(self, value):
+        if not User.objects.filter(email=value).exists():
+            raise ValidationError('Something went wrong!')
+        return value
 
     def validate_confirm_password(self, value):
         if value != self.initial_data.get('password'):
@@ -28,8 +34,6 @@ class PasswordResetSerializer(serializers.Serializer):
         user.password = make_password(self.initial_data.get('password'))
         user.save()
         return user
-
-
 
 
 class RegisterSerializer(Serializer):
