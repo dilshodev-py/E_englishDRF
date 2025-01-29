@@ -1,34 +1,21 @@
 import random
+from random import randint
 
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
-from random import randint
-
+from authentication.tasks import send_email
 from django.http import JsonResponse
-from django.shortcuts import render
 from django.views.generic import CreateView
+from drf_spectacular.utils import extend_schema
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK
 from rest_framework.views import APIView
+
+from authentication.serializers import EmailSerializer
+from authentication.serializers import ForgotPasswordSerializer, ForgotPasswordCheckSerializer
 # from authentication.tasks import send_email
 from authentication.serializers import RegisterSerializer
 
-from drf_spectacular.utils import extend_schema
-from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK, HTTP_202_ACCEPTED
-from rest_framework.views import APIView
-
-from authentication.models import User
-from authentication.serializers import ForgotPasswordSerializer, ForgotPasswordCheckSerializer
-
-
-# from authentication.tasks import send_email
-import random
-from django.core.mail import send_mail
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework import status
-from django.conf import settings
-from authentication.serializers import EmailSerializer
 
 # Create your views here.
 class RegisterAPIView(CreateView):
@@ -55,18 +42,9 @@ class SendRandomNumberAPIView(APIView):
         serializer = EmailSerializer(data=request.data)
         if serializer.is_valid():
             email = serializer.validated_data['email']
-            random_number = random.randint(1000, 9999)
+            random_number = randint(10000, 99999)
 
-            subject = "Sizning tasdiqlash kodingiz"
-            message = f"Sizning tasdiqlash kodingiz: {random_number}"
-            from_email = settings.EMAIL_HOST_USER
 
-            try:
-                send_mail(subject, message, from_email, [email])
-                return Response({"message": "Email muvaffaqiyatli yuborildi!", "code": random_number},
-                                status=status.HTTP_200_OK)
-            except Exception as e:
-                return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 @extend_schema(tags=['auth'], request=ForgotPasswordSerializer)
@@ -77,7 +55,7 @@ class ForgotPasswordAPIView(APIView):
         if s.is_valid():
             email = s.validated_data.get('email')
             code = randint(10000, 99999)
-            # send_email.delay(email=email, code=code)
+            send_email.delay(to_send=email, code=code)
             response = JsonResponse({"message": "Code send to your email!", "email": email}, status=HTTP_200_OK)
             response.set_cookie("code", str(code), max_age=300)
             return response
