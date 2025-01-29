@@ -3,10 +3,10 @@ from random import randint
 
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
-from authentication.tasks import send_email
 from django.http import JsonResponse
 from django.views.generic import CreateView
 from drf_spectacular.utils import extend_schema
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK
 from rest_framework.views import APIView
@@ -15,6 +15,19 @@ from authentication.serializers import EmailSerializer
 from authentication.serializers import ForgotPasswordSerializer, ForgotPasswordCheckSerializer
 # from authentication.tasks import send_email
 from authentication.serializers import RegisterSerializer
+from authentication.tasks import send_email
+from .serializers import PasswordResetSerializer
+
+
+@extend_schema(tags=['auth'], request=PasswordResetSerializer)
+class PasswordResetView(APIView):
+    def post(self, request):
+        serializer = PasswordResetSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "Parol yangilandi!"}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 # Create your views here.
@@ -36,13 +49,6 @@ class RegisterAPIView(CreateView):
             return Response("Email oldin ro'yxatdan o'tgan !", status=HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
-
-class SendRandomNumberAPIView(APIView):
-    def post(self, request):
-        serializer = EmailSerializer(data=request.data)
-        if serializer.is_valid():
-            email = serializer.validated_data['email']
-            random_number = randint(10000, 99999)
 
 
 

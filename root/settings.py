@@ -29,6 +29,8 @@ INSTALLED_APPS = [
 
 ]
 
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -40,6 +42,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'root.urls'
+AUTH_USER_MODEL = 'authentication.User'
+
 
 TEMPLATES = [
     {
@@ -123,6 +127,12 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
     # OTHER SETTINGS
 }
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'bmurtozayev5@gmail.com'
+EMAIL_HOST_PASSWORD = 'xbqczqzyqbooypxm'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

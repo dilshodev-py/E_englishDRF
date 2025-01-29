@@ -1,14 +1,42 @@
 import re
 
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
-from django.db.models.fields import CharField, EmailField
-from rest_framework.serializers import Serializer, ValidationError
+from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
+from rest_framework.fields import EmailField, IntegerField, CharField
+from rest_framework.serializers import Serializer
+
+from authentication.models import User
+
+
+class PasswordResetSerializer(serializers.Serializer):
+    email = EmailField(required=True)
+    password = CharField(required=True)
+    confirm_password = CharField(required=True)
+
+    def validate_confirm_password(self, value):
+        if value != self.initial_data.get('password'):
+            raise ValidationError("Passwords must match!")
+        return value
+
+    def save(self, **kwargs):
+        email = self.initial_data.get('email')
+        if not User.objects.filter(email=email).exists():
+            raise ValidationError("Something went wrong!")
+        user = User.objects.filter(email=email).first()
+        user.password = make_password(self.initial_data.get('password'))
+        user.save()
+        return user
+
+
 
 
 class RegisterSerializer(Serializer):
     full_name = CharField(max_length=255)
-    email = EmailField(unique=True)
+    email = EmailField()
     password = CharField(max_length=8)
+
     class Meta:
         model = User
         fields = ['full_name', 'email', 'password']
@@ -20,14 +48,7 @@ class RegisterSerializer(Serializer):
             raise ValidationError("Password must contain at least one special character.")
         if not any(char.isdigit() for char in value):
             raise ValidationError("Password must contain at least one number.")
-from rest_framework import serializers
 
-
-from rest_framework.exceptions import ValidationError
-from rest_framework.fields import EmailField, IntegerField
-from rest_framework.serializers import Serializer
-
-from authentication.models import User
 
 class EmailSerializer(serializers.Serializer):
     email = serializers.EmailField()
