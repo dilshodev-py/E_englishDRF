@@ -7,6 +7,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic import CreateView
 from drf_spectacular.utils import extend_schema
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK
 from rest_framework.views import APIView
@@ -15,6 +16,18 @@ from authentication.serializers import EmailSerializer
 from authentication.serializers import ForgotPasswordSerializer, ForgotPasswordCheckSerializer
 from authentication.tasks import send_email
 from authentication.serializers import RegisterSerializer
+from authentication.tasks import send_email
+from authentication.serializers import PasswordResetSerializer
+
+
+@extend_schema(tags=['auth'], request=PasswordResetSerializer)
+class PasswordResetView(APIView):
+    def post(self, request):
+        serializer = PasswordResetSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "Parol yangilandi!"}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @extend_schema(tags=['auth'], request=ForgotPasswordSerializer)
