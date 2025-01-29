@@ -1,8 +1,14 @@
+from rest_framework import serializers
+
+
 from rest_framework.exceptions import ValidationError
 from rest_framework.fields import EmailField, IntegerField
 from rest_framework.serializers import Serializer
 
 from authentication.models import User
+
+class EmailSerializer(serializers.Serializer):
+    email = serializers.EmailField()
 
 
 class ForgotPasswordSerializer(Serializer):

@@ -123,4 +123,12 @@ SPECTACULAR_SETTINGS = {
     # OTHER SETTINGS
 }
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'a.xolboyev@newuu.uz'
+EMAIL_HOST_PASSWORD = 'wmpyownlgizzhpkb'
+
+
 AUTH_USER_MODEL = 'authentication.User'
