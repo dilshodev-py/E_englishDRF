@@ -11,6 +11,7 @@ BEKZOD:
 
 BEHRUZ:
     POST : /auth/sign-up
+    add CELERY config
 
 
 OZODBEK:
