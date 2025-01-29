@@ -16,5 +16,6 @@ BEHRUZ:
 
 OZODBEK:
     POST : /auth/login
+    config server
 
 
