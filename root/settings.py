@@ -122,3 +122,5 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
     # OTHER SETTINGS
 }
+
+AUTH_USER_MODEL = 'authentication.User'

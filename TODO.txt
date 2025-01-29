@@ -2,7 +2,7 @@ ABDUVORIS:
     random son generate qilinadi va email ga habar yuboradigan function yozilsin !
 
 DONIYOR:
-    User model override
+    User model override +
     POST /auth/forgot-password
     POST /auth/verify-otp
 
