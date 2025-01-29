@@ -6,13 +6,8 @@ DONIYOR:
     POST /auth/forgot-password
     POST /auth/verify-otp
 
-
 BEKZOD:
     POST /auth/reset-password
-
-
-
-
 
 BEHRUZ:
     POST : /auth/sign-up
