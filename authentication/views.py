@@ -13,7 +13,7 @@ from authentication.serializers import ForgotPasswordSerializer, ForgotPasswordC
 # from authentication.tasks import send_email
 
 
-@extend_schema(tags=['auth'])
+@extend_schema(tags=['auth'], request=ForgotPasswordSerializer)
 class ForgotPasswordAPIView(APIView):
     def post(self, request):
         data = request.data
@@ -28,11 +28,11 @@ class ForgotPasswordAPIView(APIView):
         return JsonResponse(s.errors, status=HTTP_400_BAD_REQUEST)
 
 
-@extend_schema(tags=['auth'])
+@extend_schema(tags=['auth'], request=ForgotPasswordCheckSerializer)
 class ForgotPasswordCheckAPIView(APIView):
     def post(self, request):
         data = request.data.copy()
-        verify_code = request.COOKIES.get('verify_code')
+        verify_code = request.COOKIES.get('code')
         if not verify_code:
             return JsonResponse({"error": "Code expired!"})
         data['verify_code'] = int(verify_code)
