@@ -18,7 +18,7 @@ class ForgotPasswordSerializer(Serializer):
 
 class ForgotPasswordCheckSerializer(Serializer):
     code = IntegerField(required=True)
-    verify_code = IntegerField(required=True)
+    verify_code = IntegerField(read_only=True)
     email = EmailField(required=True)
 
     def validate_email(self, value):
