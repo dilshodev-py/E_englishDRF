@@ -105,6 +105,7 @@ MEDIA_ROOT = join(BASE_DIR , 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
 
 # -------------------------------------------
 
@@ -122,5 +123,13 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
     # OTHER SETTINGS
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'a.xolboyev@newuu.uz'
+EMAIL_HOST_PASSWORD = 'wmpyownlgizzhpkb'
+
 
 AUTH_USER_MODEL = 'authentication.User'
