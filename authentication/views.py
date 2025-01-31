@@ -11,7 +11,7 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK
 from rest_framework.views import APIView
 
-from authentication.serializers import ForgotPasswordSerializer, ForgotPasswordCheckSerializer, RegisterCheckSerializer
+from authentication.serializers import ForgotPasswordSerializer, ForgotPasswordCheckSerializer
 from authentication.serializers import PasswordResetSerializer
 from authentication.serializers import RegisterSerializer
 from authentication.tasks import send_email
@@ -54,7 +54,6 @@ class ForgotPasswordCheckAPIView(APIView):
         if s.is_valid():
             return JsonResponse({"message": "Correct code!"}, status=HTTP_200_OK)
         return JsonResponse(s.errors, status=HTTP_400_BAD_REQUEST)
-
 
 @extend_schema(tags=['auth'], request=RegisterSerializer)
 class RegisterAPIView(CreateAPIView):

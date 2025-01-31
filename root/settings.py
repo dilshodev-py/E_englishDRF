@@ -9,7 +9,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
+# 10.10.1.151:8000
 
 INSTALLED_APPS = [
     'django.contrib.auth',

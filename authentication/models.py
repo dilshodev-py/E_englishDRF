@@ -41,7 +41,6 @@ class User(AbstractUser):
     full_name = CharField(max_length=128)
     email = EmailField(unique=True, null=False, blank=False)
     username = CharField(max_length=128, unique=False)
-
     objects = CustomUserManager()
     EMAIL_FIELD = "email"
     USERNAME_FIELD = "email"
