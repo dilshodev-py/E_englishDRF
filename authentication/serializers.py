@@ -1,6 +1,6 @@
 import re
 
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
@@ -48,7 +48,7 @@ class RegisterSerializer(ModelSerializer):
             raise ValidationError("Password must contain at least one special character.")
         if not any(char.isdigit() for char in value):
             raise ValidationError("Password must contain at least one number.")
-        return value
+        return make_password(value)
 
 
 class ForgotPasswordSerializer(Serializer):
@@ -73,7 +73,7 @@ class ForgotPasswordCheckSerializer(Serializer):
         return value
 
     def validate_code(self, value):
-        if not value == self.initial_data.get('verify_code'):
+        if not check_password(str(value) , self.initial_data.get('verify_code').encode()):
             raise ValidationError("Incorrect code!")
         return value
 

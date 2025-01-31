@@ -44,6 +44,7 @@ class ForgotPasswordAPIView(APIView):
 
 @extend_schema(tags=['auth'], request=ForgotPasswordCheckSerializer)
 class ForgotPasswordCheckAPIView(APIView):
+
     def post(self, request):
         data = request.data.copy()
         verify_code = request.COOKIES.get('code')
@@ -57,10 +58,13 @@ class ForgotPasswordCheckAPIView(APIView):
 
 @extend_schema(tags=['auth'], request=RegisterSerializer)
 class RegisterAPIView(CreateAPIView):
-    def post(self, request, *args, **kwargs):
-        serializer = RegisterSerializer(data=request.data)
+    serializer_class = RegisterSerializer
+    queryset = User.objects.all()
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
         user = User.objects.filter(email=request.data.get("email")).first()
-        if serializer.is_valid() or (user and not user.is_active):
+        if serializer.is_valid(raise_exception=True) or (user and not user.is_active):
             if not user:
                 userr = serializer.save()
                 userr.is_active = False
@@ -75,3 +79,6 @@ class RegisterAPIView(CreateAPIView):
         elif user and user.is_active:
             return Response("Email oldin ro'yxatdan o'tgan !", status=HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
+
+

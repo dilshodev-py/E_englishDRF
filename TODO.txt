@@ -1,10 +1,19 @@
 ABDUVORIS:
     random son generate qilinadi va email ga habar yuboradigan function yozilsin !
+    GET /words/<unit_id>
+
 
 DONIYOR:
     User model override +
     POST /auth/forgot-password
     POST /auth/verify-otp
+
+
+    GET /leaderboard/daily
+    GET /leaderboard/weekly
+    GET /leaderboard/monthly
+
+
 
 BEKZOD:
     POST /auth/reset-password
@@ -13,10 +22,19 @@ BEHRUZ:
     POST : /auth/sign-up
     add CELERY config
 
+    GET /books/
+    GET /{book.id}/units/
+
 
 OZODBEK:
     POST : /auth/login
     config server
 
+    GET /quiz/
 
-z
+
+ELMUROD:
+    2. POST /random-quiz/
+        a. I give unit numbers
+        b. I give question numbers
+        c. I get 10 questions
