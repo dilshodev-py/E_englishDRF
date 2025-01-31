@@ -1,3 +1,5 @@
+🟢️ ️🔴  ✅
+
 ABDUVORIS:
     random son generate qilinadi va email ga habar yuboradigan function yozilsin !
     GET /words/<unit_id>
