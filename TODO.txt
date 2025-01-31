@@ -10,7 +10,7 @@ DONIYOR:
     POST /auth/forgot-password
     POST /auth/verify-otp
 
-
+    test auth full !
     GET /leaderboard/daily
     GET /leaderboard/weekly
     GET /leaderboard/monthly
