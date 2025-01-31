@@ -11,6 +11,8 @@ from root import settings
 def send_email(to_send, code):
     email = settings.EMAIL_HOST_USER
     password = settings.EMAIL_HOST_PASSWORD
+    print(email)
+    print(password)
     try:
         message = MIMEMultipart('alternative')
         message['Subject'] = "Verify code"
@@ -25,7 +27,7 @@ def send_email(to_send, code):
 
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
             server.login(email, password)
-            server.sendmail(email, to_send, message.as_string())
+            server.sendmail(email, [to_send], message.as_string())
             print('Success')
         return f"Success to email {to_send}!"
     except Exception as e:

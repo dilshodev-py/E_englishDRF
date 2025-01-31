@@ -11,7 +11,7 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK
 from rest_framework.views import APIView
 
-from authentication.serializers import ForgotPasswordSerializer, ForgotPasswordCheckSerializer
+from authentication.serializers import ForgotPasswordSerializer, ForgotPasswordCheckSerializer, RegisterCheckSerializer
 from authentication.serializers import PasswordResetSerializer
 from authentication.serializers import RegisterSerializer
 from authentication.tasks import send_email
@@ -49,11 +49,12 @@ class ForgotPasswordCheckAPIView(APIView):
         verify_code = request.COOKIES.get('code')
         if not verify_code:
             return JsonResponse({"error": "Code expired!"})
-        data['verify_code'] = int(verify_code)
+        data['verify_code'] = verify_code
         s = ForgotPasswordCheckSerializer(data=data)
         if s.is_valid():
             return JsonResponse({"message": "Correct code!"}, status=HTTP_200_OK)
         return JsonResponse(s.errors, status=HTTP_400_BAD_REQUEST)
+
 
 @extend_schema(tags=['auth'], request=RegisterSerializer)
 class RegisterAPIView(CreateAPIView):
@@ -70,8 +71,22 @@ class RegisterAPIView(CreateAPIView):
             email = data.get("email")
             send_email.delay(email, random_code)
             response = Response("Tasdiqlash kodi jo'natildi !", status=HTTP_200_OK)
-            response.set_cookie("verify", make_password(str(random_code)))
+            response.set_cookie("verify", make_password(str(random_code)), max_age=300)
             return response
         elif user and user.is_active:
             return Response("Email oldin ro'yxatdan o'tgan !", status=HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
+
+@extend_schema(tags=['auth'], request=ForgotPasswordCheckSerializer)
+class RegisterCheckAPIView(APIView):
+    def post(self, request):
+        data = request.data.copy()
+        verify_code = request.COOKIES.get('verify')
+        if not verify_code:
+            return JsonResponse({"error": "Code expired!"})
+        data['verify_code'] = verify_code
+        s = RegisterCheckSerializer(data=data)
+        if s.is_valid():
+            return JsonResponse({"message": "Correct code!"}, status=HTTP_200_OK)
+        return JsonResponse(s.errors, status=HTTP_400_BAD_REQUEST)

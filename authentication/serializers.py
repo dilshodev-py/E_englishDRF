@@ -1,6 +1,6 @@
 import re
 
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
@@ -62,6 +62,27 @@ class ForgotPasswordSerializer(Serializer):
         return value
 
 
+class RegisterCheckSerializer(Serializer):
+    code = IntegerField(required=True)
+    verify_code = IntegerField(read_only=True)
+    email = EmailField(required=True)
+
+    def validate_email(self, value):
+        if value or not User.objects.filter(email=value).exists():
+            raise ValidationError("Something went wrong!")
+        return value
+
+    def validate_code(self, value):
+        if not check_password(str(value), self.initial_data.get('verify_code')):
+            raise ValidationError("Incorrect code!")
+        return value
+
+    # def create(self, validated_data):
+    #     user = User.objects.create_user(**validated_data)
+    #     send_verification_email.delay(user.email)
+    #     return user
+
+
 class ForgotPasswordCheckSerializer(Serializer):
     code = IntegerField(required=True)
     verify_code = IntegerField(read_only=True)
@@ -73,7 +94,7 @@ class ForgotPasswordCheckSerializer(Serializer):
         return value
 
     def validate_code(self, value):
-        if not value == self.initial_data.get('verify_code'):
+        if not check_password(str(value), self.initial_data.get('verify_code')):
             raise ValidationError("Incorrect code!")
         return value
 
