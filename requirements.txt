@@ -17,9 +17,10 @@ jsonschema==4.23.0
 jsonschema-specifications==2024.10.1
 kombu==5.4.2
 Markdown==3.7
+pillow==11.1.0
 prompt_toolkit==3.0.50
-python-dateutil==2.9.0.post0
 PyJWT==2.10.1
+python-dateutil==2.9.0.post0
 PyYAML==6.0.2
 redis==5.2.1
 referencing==0.36.2
@@ -28,7 +29,6 @@ six==1.17.0
 sqlparse==0.5.3
 typing_extensions==4.12.2
 tzdata==2025.1
-typing_extensions==4.12.2
 uritemplate==4.1.1
 vine==5.1.0
 wcwidth==0.2.13
