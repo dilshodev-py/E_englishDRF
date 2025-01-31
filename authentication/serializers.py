@@ -6,7 +6,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework.fields import CharField
 from rest_framework.fields import EmailField, IntegerField
-from rest_framework.serializers import Serializer
+from rest_framework.serializers import Serializer, ModelSerializer
 
 from authentication.models import User
 
@@ -36,11 +36,7 @@ class PasswordResetSerializer(serializers.Serializer):
         return user
 
 
-class RegisterSerializer(Serializer):
-    full_name = CharField(max_length=255)
-    email = EmailField()
-    password = CharField(max_length=8)
-
+class RegisterSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = ['full_name', 'email', 'password']
@@ -52,10 +48,7 @@ class RegisterSerializer(Serializer):
             raise ValidationError("Password must contain at least one special character.")
         if not any(char.isdigit() for char in value):
             raise ValidationError("Password must contain at least one number.")
-
-
-class EmailSerializer(serializers.Serializer):
-    email = serializers.EmailField()
+        return value
 
 
 class ForgotPasswordSerializer(Serializer):
