@@ -3,7 +3,7 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.contrib.contenttypes.models import ContentType
-from django.db.models import Model
+from django.db.models import Model, ImageField
 from django.db.models.fields import EmailField, CharField
 
 
@@ -45,5 +45,9 @@ class User(AbstractUser):
     EMAIL_FIELD = "email"
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
+    avatar = ImageField(upload_to='images/users/')
+
+
+
 
 

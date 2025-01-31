@@ -1,3 +1,5 @@
+🟢️ ️🔴  ✅
+
 ABDUVORIS:
     random son generate qilinadi va email ga habar yuboradigan function yozilsin !
     GET /words/<unit_id>
@@ -8,7 +10,7 @@ DONIYOR:
     POST /auth/forgot-password
     POST /auth/verify-otp
 
-
+    test auth full !
     GET /leaderboard/daily
     GET /leaderboard/weekly
     GET /leaderboard/monthly

@@ -21,6 +21,7 @@ INSTALLED_APPS = [
 
     # My App
     'authentication',
+    'essential',
 
     # Third Part App
     'rest_framework',
