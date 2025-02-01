@@ -1,6 +1,6 @@
 import re
 
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
@@ -24,6 +24,15 @@ class PasswordResetSerializer(serializers.Serializer):
     def validate_confirm_password(self, value):
         if value != self.initial_data.get('password'):
             raise ValidationError("Passwords must match!")
+        return value
+
+    def validate_password(self, value):
+        if len(value) < 8:
+            raise ValidationError("Password must be at least 8 characters long.")
+        if not re.search(r"[*/!@#$%^&*(),.?\":{}|<>]", value):
+            raise ValidationError("Password must contain at least one special character.")
+        if not any(char.isdigit() for char in value):
+            raise ValidationError("Password must contain at least one number.")
         return value
 
     def save(self, **kwargs):
@@ -68,7 +77,7 @@ class RegisterCheckSerializer(Serializer):
     email = EmailField(required=True)
 
     def validate_email(self, value):
-        if value or not User.objects.filter(email=value).exists():
+        if not value or not User.objects.filter(email=value).exists():
             raise ValidationError("Something went wrong!")
         return value
 

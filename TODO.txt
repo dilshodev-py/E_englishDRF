@@ -6,14 +6,14 @@ ABDUVORIS:
 
 
 DONIYOR:
-    User model override +
-    POST /auth/forgot-password
-    POST /auth/verify-otp
+    User model override ✅
+    POST /auth/forgot-password ✅
+    POST /auth/verify-otp ✅
 
-    test auth full !
-    GET /leaderboard/daily
-    GET /leaderboard/weekly
-    GET /leaderboard/monthly
+    test auth full ! ✅
+    GET /leaderboard/daily ✅
+    GET /leaderboard/weekly ✅
+    GET /leaderboard/monthly ✅
 
 
 
