@@ -1,7 +1,7 @@
 from django.urls import path
 
-from essential.views import LeaderBoardListAPIView
+from essential.views import LeaderBoardAPIView
 
 urlpatterns = [
-    path('leaderboard/', LeaderBoardListAPIView.as_view())
+    path('leaderboard/', LeaderBoardAPIView.as_view())
 ]
