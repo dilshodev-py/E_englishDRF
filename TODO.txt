@@ -35,8 +35,16 @@ OZODBEK:
     GET /quiz/
 
 
-ELMUROD:
-    2. POST /random-quiz/
+🟢️ELMUROD:
+    2. POST /random-quiz/ ✅
         a. I give unit numbers
         b. I give question numbers
         c. I get 10 questions
+
+    kirish:     {
+    "book_id": 1,
+    "unit_ids": [1, 2],
+    "question_count": 2
+         }
+    qaytish: 1 chi id li kitobga tegishli 1 2 chi idli unitlardan random 2 ta test tuzib qaytaradi
+    question_type : ["uz_to_en", "en_to_uz", "definition", "sentence"]
