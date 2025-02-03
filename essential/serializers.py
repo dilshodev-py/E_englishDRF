@@ -3,6 +3,15 @@ from rest_framework.serializers import ModelSerializer
 
 from authentication.models import User
 from essential.models import Book, Unit
+from rest_framework import serializers
+
+class QuizRequestSerializer(serializers.Serializer):
+    book_id = serializers.IntegerField()
+    unit_ids = serializers.ListField(
+        child=serializers.IntegerField(),
+        allow_empty=False
+    )
+    question_count = serializers.IntegerField(default=10, min_value=1, max_value=20)
 
 
 class BookModelSerializer(ModelSerializer):

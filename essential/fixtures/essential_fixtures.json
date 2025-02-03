@@ -1,0 +1,420 @@
+[
+    {
+        "model": "essential.book",
+        "pk": 1,
+        "fields": {
+            "name": "Essential",
+            "image": "images/books/essential.jpg",
+            "number": 1
+        }
+    },
+    {
+        "model": "essential.unit",
+        "pk": 1,
+        "fields": {
+            "book": 1,
+            "number": 1,
+            "name": "Introduction"
+        }
+    },
+    {
+        "model": "essential.unit",
+        "pk": 2,
+        "fields": {
+            "book": 1,
+            "number": 2,
+            "name": "Common Phrases"
+        }
+    },
+    {
+        "model": "essential.unit",
+        "pk": 3,
+        "fields": {
+            "book": 1,
+            "number": 3,
+            "name": "Basic Verbs"
+        }
+    },
+    {
+        "model": "essential.unit",
+        "pk": 4,
+        "fields": {
+            "book": 1,
+            "number": 4,
+            "name": "Adjectives"
+        }
+    },
+    {
+        "model": "essential.unit",
+        "pk": 5,
+        "fields": {
+            "book": 1,
+            "number": 5,
+            "name": "Advanced Vocabulary"
+        }
+    },
+    {
+        "model": "essential.word",
+        "pk": 1,
+        "fields": {
+            "uz": "salom",
+            "en": "hello",
+            "pronunciation": "həˈloʊ",
+            "type": "noun",
+            "definition": "A greeting or expression of goodwill",
+            "sentence": "Hello, how are you?",
+            "image": "images/words/hello.jpg",
+            "unit": 1
+        }
+    },
+    {
+        "model": "essential.word",
+        "pk": 2,
+        "fields": {
+            "uz": "rahmat",
+            "en": "thank you",
+            "pronunciation": "θæŋk juː",
+            "type": "noun",
+            "definition": "An expression of gratitude",
+            "sentence": "Thank you for your help.",
+            "image": "images/words/thank_you.jpg",
+            "unit": 1
+        }
+    },
+    {
+        "model": "essential.word",
+        "pk": 3,
+        "fields": {
+            "uz": "yugurmoq",
+            "en": "run",
+            "pronunciation": "rʌn",
+            "type": "verb",
+            "definition": "To move swiftly on foot",
+            "sentence": "He can run very fast.",
+            "image": "images/words/run.jpg",
+            "unit": 3
+        }
+    },
+    {
+        "model": "essential.word",
+        "pk": 4,
+        "fields": {
+            "uz": "kitob",
+            "en": "book",
+            "pronunciation": "bʊk",
+            "type": "noun",
+            "definition": "A set of written or printed pages bound together",
+            "sentence": "I love reading books.",
+            "image": "images/words/book.jpg",
+            "unit": 3
+        }
+    },
+    {
+        "model": "essential.word",
+        "pk": 5,
+        "fields": {
+            "uz": "yaxshi",
+            "en": "good",
+            "pronunciation": "ɡʊd",
+            "type": "adjective",
+            "definition": "Of high quality or standard",
+            "sentence": "She is a good teacher.",
+            "image": "images/words/good.jpg",
+            "unit": 4
+        }
+    },
+    {
+        "model": "essential.word",
+        "pk": 6,
+        "fields": {
+            "uz": "tez",
+            "en": "quickly",
+            "pronunciation": "ˈkwɪkli",
+            "type": "adverb",
+            "definition": "At a fast speed",
+            "sentence": "He finished his work quickly.",
+            "image": "images/words/quickly.jpg",
+            "unit": 4
+        }
+    },
+    {
+        "model": "essential.word",
+        "pk": 7,
+        "fields": {
+            "uz": "yordam",
+            "en": "help",
+            "pronunciation": "hɛlp",
+            "type": "noun",
+            "definition": "Assistance or support",
+            "sentence": "Can you help me with this?",
+            "image": "images/words/help.jpg",
+            "unit": 1
+        }
+    },
+    {
+        "model": "essential.word",
+        "pk": 8,
+        "fields": {
+            "uz": "xayr",
+            "en": "goodbye",
+            "pronunciation": "ɡʊdˈbaɪ",
+            "type": "noun",
+            "definition": "A farewell expression",
+            "sentence": "Goodbye, see you tomorrow!",
+            "image": "images/words/goodbye.jpg",
+            "unit": 1
+        }
+    },
+    {
+        "model": "essential.word",
+        "pk": 9,
+        "fields": {
+            "uz": "men",
+            "en": "I",
+            "pronunciation": "aɪ",
+            "type": "pronoun",
+            "definition": "First person singular pronoun",
+            "sentence": "I am learning English.",
+            "image": "images/words/i.jpg",
+            "unit": 1
+        }
+    },
+    {
+        "model": "essential.word",
+        "pk": 10,
+        "fields": {
+            "uz": "siz",
+            "en": "you",
+            "pronunciation": "juː",
+            "type": "pronoun",
+            "definition": "Second person pronoun",
+            "sentence": "You are very kind.",
+            "image": "images/words/you.jpg",
+            "unit": 1
+        }
+    },
+    {
+        "model": "essential.word",
+        "pk": 11,
+        "fields": {
+            "uz": "u",
+            "en": "he/she",
+            "pronunciation": "hiː/ʃiː",
+            "type": "pronoun",
+            "definition": "Third person singular pronoun",
+            "sentence": "He is a doctor. She is a teacher.",
+            "image": "images/words/he_she.jpg",
+            "unit": 1
+        }
+    },
+    {
+        "model": "essential.word",
+        "pk": 12,
+        "fields": {
+            "uz": "biz",
+            "en": "we",
+            "pronunciation": "wiː",
+            "type": "pronoun",
+            "definition": "First person plural pronoun",
+            "sentence": "We are going to the park.",
+            "image": "images/words/we.jpg",
+            "unit": 1
+        }
+    },
+    {
+        "model": "essential.word",
+        "pk": 13,
+        "fields": {
+            "uz": "ular",
+            "en": "they",
+            "pronunciation": "ðeɪ",
+            "type": "pronoun",
+            "definition": "Third person plural pronoun",
+            "sentence": "They are playing football.",
+            "image": "images/words/they.jpg",
+            "unit": 1
+        }
+    },
+    {
+        "model": "essential.word",
+        "pk": 14,
+        "fields": {
+            "uz": "uy",
+            "en": "home",
+            "pronunciation": "hoʊm",
+            "type": "noun",
+            "definition": "A place where one lives",
+            "sentence": "I go home after work.",
+            "image": "images/words/home.jpg",
+            "unit": 2
+        }
+    },
+    {
+        "model": "essential.word",
+        "pk": 15,
+        "fields": {
+            "uz": "maktab",
+            "en": "school",
+            "pronunciation": "skuːl",
+            "type": "noun",
+            "definition": "A place for learning",
+            "sentence": "My sister goes to school.",
+            "image": "images/words/school.jpg",
+            "unit": 2
+        }
+    },
+    {
+        "model": "essential.word",
+        "pk": 16,
+        "fields": {
+            "uz": "ish",
+            "en": "work",
+            "pronunciation": "wɜːrk",
+            "type": "noun",
+            "definition": "Activity involving mental or physical effort",
+            "sentence": "I have a lot of work to do.",
+            "image": "images/words/work.jpg",
+            "unit": 2
+        }
+    },
+    {
+        "model": "essential.word",
+        "pk": 17,
+        "fields": {
+            "uz": "o'qish",
+            "en": "read",
+            "pronunciation": "riːd",
+            "type": "verb",
+            "definition": "To look at and understand written words",
+            "sentence": "I read books every day.",
+            "image": "images/words/read.jpg",
+            "unit": 3
+        }
+    },
+    {
+        "model": "essential.word",
+        "pk": 18,
+        "fields": {
+            "uz": "yozmoq",
+            "en": "write",
+            "pronunciation": "raɪt",
+            "type": "verb",
+            "definition": "To form letters or words on a surface",
+            "sentence": "She writes letters to her friends.",
+            "image": "images/words/write.jpg",
+            "unit": 3
+        }
+    },
+    {
+        "model": "essential.word",
+        "pk": 19,
+        "fields": {
+            "uz": "gapirmoq",
+            "en": "speak",
+            "pronunciation": "spiːk",
+            "type": "verb",
+            "definition": "To talk or say something",
+            "sentence": "He speaks English fluently.",
+            "image": "images/words/speak.jpg",
+            "unit": 3
+        }
+    },
+    {
+        "model": "essential.word",
+        "pk": 20,
+        "fields": {
+            "uz": "eshitmoq",
+            "en": "listen",
+            "pronunciation": "ˈlɪsən",
+            "type": "verb",
+            "definition": "To pay attention to sound",
+            "sentence": "Listen to the music.",
+            "image": "images/words/listen.jpg",
+            "unit": 3
+        }
+    },
+    {
+        "model": "essential.word",
+        "pk": 21,
+        "fields": {
+            "uz": "katta",
+            "en": "big",
+            "pronunciation": "bɪɡ",
+            "type": "adjective",
+            "definition": "Of considerable size",
+            "sentence": "This is a big house.",
+            "image": "images/words/big.jpg",
+            "unit": 4
+        }
+    },
+    {
+        "model": "essential.word",
+        "pk": 22,
+        "fields": {
+            "uz": "kichik",
+            "en": "small",
+            "pronunciation": "smɔːl",
+            "type": "adjective",
+            "definition": "Of a size that is less than normal",
+            "sentence": "She has a small bag.",
+            "image": "images/words/small.jpg",
+            "unit": 4
+        }
+    },
+    {
+        "model": "essential.word",
+        "pk": 23,
+        "fields": {
+            "uz": "qiziqarli",
+            "en": "interesting",
+            "pronunciation": "ˈɪntrəstɪŋ",
+            "type": "adjective",
+            "definition": "Arousing curiosity or interest",
+            "sentence": "This book is very interesting.",
+            "image": "images/words/interesting.jpg",
+            "unit": 4
+        }
+    },
+    {
+        "model": "essential.word",
+        "pk": 24,
+        "fields": {
+            "uz": "qiyin",
+            "en": "difficult",
+            "pronunciation": "ˈdɪfɪkəlt",
+            "type": "adjective",
+            "definition": "Requiring much effort or skill",
+            "sentence": "This task is difficult.",
+            "image": "images/words/difficult.jpg",
+            "unit": 4
+        }
+    },
+    {
+        "model": "essential.word",
+        "pk": 25,
+        "fields": {
+            "uz": "oson",
+            "en": "easy",
+            "pronunciation": "ˈiːzi",
+            "type": "adjective",
+            "definition": "Achieved without great effort",
+            "sentence": "This question is easy.",
+            "image": "images/words/easy.jpg",
+            "unit": 4
+        }
+    },
+    {
+        "model": "essential.word",
+        "pk": 26,
+        "fields": {
+            "uz": "sekin",
+            "en": "slowly",
+            "pronunciation": "ˈsloʊli",
+            "type": "adverb",
+            "definition": "At a slow speed",
+            "sentence": "He walks slowly.",
+            "image": "images/words/slowly.jpg",
+            "unit": 4
+        }
+    }
+]
