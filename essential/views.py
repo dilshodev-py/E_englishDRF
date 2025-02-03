@@ -1,6 +1,5 @@
 
 import random
-
 from drf_spectacular.utils import extend_schema
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -8,15 +7,17 @@ from rest_framework import status
 from .models import Book, Unit, Word
 from .serializers import QuizRequestSerializer
 
-@extend_schema(tags=["Quiz"],request=QuizRequestSerializer)
+@extend_schema(tags=["Quiz"], request=QuizRequestSerializer)
 class QuizView(APIView):
     def post(self, request):
         serializer = QuizRequestSerializer(data=request.data)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        book_id = serializer.validated_data['book_id']
-        unit_ids = serializer.validated_data['unit_ids']
-        question_count = serializer.validated_data['question_count']
+
+        book_id = serializer.validated_data["book_id"]
+        unit_ids = serializer.validated_data["unit_ids"]
+        question_count = serializer.validated_data["question_count"]
+
         if not Book.objects.filter(id=book_id).exists():
             return Response({"error": "Book not found"}, status=status.HTTP_404_NOT_FOUND)
 
@@ -29,44 +30,50 @@ class QuizView(APIView):
             return Response({"error": "No words found for the given units"}, status=status.HTTP_404_NOT_FOUND)
 
         word_samples = random.sample(words, min(len(words), question_count))
-
         quiz = []
+
+        question_types = {
+            "uz_to_en": lambda w: {
+                "type": "uz_to_en",
+                "question": f"'{w.uz}' so‘zining inglizcha tarjimasini toping:",
+                "correct_answer": w.en,
+                "options": self.get_options(w.en, True),
+            },
+            "en_to_uz": lambda w: {
+                "type": "en_to_uz",
+                "question": f"'{w.en}' so‘zining o‘zbekcha tarjimasini toping:",
+                "correct_answer": w.uz,
+                "options": self.get_options(w.uz, False),
+            },
+            "definition": lambda w: {
+                "type": "definition",
+                "question": f"Quyidagi ta’rifga mos keladigan so‘zni tanlang: '{w.definition}'",
+                "correct_answer": w.en,
+                "options": self.get_options(w.en, True),
+            },
+            "sentence": lambda w: self.generate_sentence_question(w),
+        }
+
         for word in word_samples:
-            question_type = random.choice(["uz_to_en", "en_to_uz", "definition", "sentence"])
-
-            wrong_answers = list(Word.objects.exclude(id=word.id).values_list('en', flat=True))
-            random.shuffle(wrong_answers)
-            wrong_answers = wrong_answers[:3] if len(wrong_answers) >= 3 else wrong_answers
-
-            if question_type == "uz_to_en":
-                question = {
-                    "type": "uz_to_en",
-                    "question": f"'{word.uz}' so‘zining inglizcha tarjimasini toping:",
-                    "correct_answer": word.en,
-                    "options": random.sample([word.en] + wrong_answers, len(wrong_answers) + 1)
-                }
-            elif question_type == "en_to_uz":
-                question = {
-                    "type": "en_to_uz",
-                    "question": f"'{word.en}' so‘zining o‘zbekcha tarjimasini toping:",
-                    "correct_answer": word.uz,
-                    "options": random.sample([word.uz] + wrong_answers, len(wrong_answers) + 1)
-                }
-            elif question_type == "definition":
-                question = {
-                    "type": "definition",
-                    "question": f"Quyidagi ta’rifga mos keladigan so‘zni tanlang: '{word.definition}'",
-                    "correct_answer": word.en,
-                    "options": random.sample([word.en] + wrong_answers, len(wrong_answers) + 1)
-                }
-            else:  # "sentence"
-                question = {
-                    "type": "sentence",
-                    "question": f"Bo‘sh joyni to‘ldiring: {word.sentence.replace(word.en, '______')}",
-                    "correct_answer": word.en,
-                    "options": random.sample([word.en] + wrong_answers, len(wrong_answers) + 1)
-                }
-
+            q_type = random.choice(list(question_types.keys()))
+            question = question_types[q_type](word)
             quiz.append(question)
 
         return Response({"quiz": quiz}, status=status.HTTP_200_OK)
+
+    def get_options(self, correct_answer, is_english):
+        """To‘g‘ri javobga mos variantlarni tanlaydi"""
+        all_words = list(Word.objects.values_list("en" if is_english else "uz", flat=True))
+        wrong_answers = random.sample([w for w in all_words if w != correct_answer], min(len(all_words) - 1, 3))
+        return random.sample([correct_answer] + wrong_answers, len(wrong_answers) + 1)
+
+    def generate_sentence_question(self, word):
+        """Bo‘sh joy qo‘yilgan gapni generatsiya qiladi"""
+        word_capitalized = word.en.capitalize()
+        sentence = word.sentence.replace(word.en, "______").replace(word_capitalized, "______")
+        return {
+            "type": "sentence",
+            "question": f"Bo‘sh joyni to‘ldiring: {sentence}",
+            "correct_answer": word.en,
+            "options": self.get_options(word.en, True),
+        }
