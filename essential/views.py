@@ -116,7 +116,9 @@ class LeaderBoardAPIView(APIView):
                 point=Sum('points__point', filter=F('points__created_at') > timee)
             ).order_by('-point')
         else:
-            return JsonResponse({"message": "Problem with getting time"})
+            users = User.objects.annotate(
+                point=Sum('points__point')
+            ).order_by('-point')
 
         top = users[:10]
         serialized_top = UserModelSerializer(instance=top, many=True).data
