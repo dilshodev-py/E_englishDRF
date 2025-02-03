@@ -21,7 +21,7 @@ from rest_framework import status
 from .models import Book, Unit, Word
 from .serializers import QuizRequestSerializer
 
-@extend_schema(tags=["Quiz"], request=QuizRequestSerializer)
+@extend_schema(tags=["essential"], request=QuizRequestSerializer)
 class QuizView(APIView):
     def post(self, request):
         serializer = QuizRequestSerializer(data=request.data)
