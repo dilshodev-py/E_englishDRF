@@ -16,6 +16,6 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /var/www/web/E_englishDRF
+            cd /var/www/web
             git pull 
             systemctl restart e_english.service
