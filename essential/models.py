@@ -1,9 +1,9 @@
-from tkinter import Image
 
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models import Model, ImageField, CharField, IntegerField, IntegerChoices, ForeignKey, CASCADE, \
     SmallIntegerField, DecimalField, TextChoices
+from django.db.models.fields import PositiveSmallIntegerField, DateTimeField
 
 
 # Create your models here.
@@ -42,3 +42,8 @@ class Word(Model):
     sentence = CharField(max_length=500)
     image = ImageField(upload_to='images/words/')
     unit = ForeignKey('essential.Unit' , CASCADE , related_name='words')
+
+class Point(Model):
+    user = ForeignKey('authentication.User', CASCADE, related_name='points')
+    point = PositiveSmallIntegerField()
+    created_at = DateTimeField(auto_now_add=True)
