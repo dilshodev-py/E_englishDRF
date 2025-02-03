@@ -6,6 +6,13 @@ from rest_framework.views import APIView
 
 from authentication.models import User
 from essential.serializers import UserModelSerializer
+from django.shortcuts import render
+from drf_spectacular.utils import extend_schema
+from rest_framework.generics import ListAPIView
+
+from essential.models import Book, Unit
+from essential.serializers import BookModelSerializer, UniteModelSerializer
+
 
 
 @extend_schema(tags=['leaderboard'])
@@ -32,3 +39,14 @@ class LeaderBoardAPIView(APIView):
                 around_user.append(under_user)
             around_user = UserModelSerializer(instance=around_user, many=True).data
         return JsonResponse({"top": serialized_top, "around_user": around_user})
+
+@extend_schema(tags=['essential'])
+class BookListAPIView(ListAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookModelSerializer
+
+
+@extend_schema(tags=['essential'])
+class UniteListAPIView(ListAPIView):
+    queryset = Unit.objects.all()
+    serializer_class = UniteModelSerializer

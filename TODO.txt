@@ -20,12 +20,12 @@ DONIYOR:
 BEKZOD:
     POST /auth/reset-password
 
-BEHRUZ:
-    POST : /auth/sign-up
-    add CELERY config
+BEHRUZ: 🟢️
+    POST : /auth/sign-up  ✅
+    add CELERY config  ✅
 
-    GET /books/
-    GET /{book.id}/units/
+    GET /books/ ✅
+    GET /{book.id}/units/  ✅
 
 
 OZODBEK:
