@@ -14,16 +14,10 @@ from authentication.models import User
 class PasswordResetSerializer(serializers.Serializer):
     email = EmailField(required=True)
     password = CharField(required=True)
-    confirm_password = CharField(required=True)
 
     def validate_email(self, value):
         if not User.objects.filter(email=value).exists():
             raise ValidationError('Something went wrong!')
-        return value
-
-    def validate_confirm_password(self, value):
-        if value != self.initial_data.get('password'):
-            raise ValidationError("Passwords must match!")
         return value
 
     def validate_password(self, value):
@@ -48,7 +42,7 @@ class PasswordResetSerializer(serializers.Serializer):
 class RegisterSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = ['full_name', 'email', 'password']
+        fields = ['fullname', 'email', 'password']
 
     def validate_password(self, value):
         if len(value) < 8:
@@ -82,7 +76,7 @@ class RegisterCheckSerializer(Serializer):
         return value
 
     def validate_code(self, value):
-        if not check_password(str(value), self.initial_data.get('verify_code')):
+        if str(value) != str(self.initial_data.get('verify_code')):
             raise ValidationError("Incorrect code!")
         return value
 

@@ -1,6 +1,8 @@
 import random
 from random import randint
 
+from django.core.cache import cache
+
 from authentication.models import User
 from django.contrib.auth.hashers import make_password
 from django.http import JsonResponse
@@ -37,7 +39,7 @@ class ForgotPasswordAPIView(APIView):
             code = randint(10000, 99999)
             send_email.delay(to_send=email, code=code)
             response = JsonResponse({"message": "Code send to your email!", "email": email}, status=HTTP_200_OK)
-            response.set_cookie("code", make_password(str(code)), max_age=300)
+            cache.set(email, code, timeout=300)
             return response
         return JsonResponse(s.errors, status=HTTP_400_BAD_REQUEST)
 
@@ -46,7 +48,7 @@ class ForgotPasswordAPIView(APIView):
 class ForgotPasswordCheckAPIView(APIView):
     def post(self, request):
         data = request.data.copy()
-        verify_code = request.COOKIES.get('code')
+        verify_code = cache.get(data.get('email'))
         if not verify_code:
             return JsonResponse({"error": "Code expired!"})
         data['verify_code'] = verify_code
@@ -54,6 +56,7 @@ class ForgotPasswordCheckAPIView(APIView):
         if s.is_valid():
             return JsonResponse({"message": "Correct code!"}, status=HTTP_200_OK)
         return JsonResponse(s.errors, status=HTTP_400_BAD_REQUEST)
+
 
 @extend_schema(tags=['auth'], request=RegisterSerializer)
 class RegisterAPIView(CreateAPIView):
@@ -65,11 +68,11 @@ class RegisterAPIView(CreateAPIView):
                 userr = serializer.save()
                 userr.is_active = False
                 userr.save()
-            random_code = random.randrange(10 ** 5, 10 ** 6)
+            random_code = randint(10000, 99999)
             email = request.data.get("email")
             send_email.delay(email, random_code)
             response = Response("Tasdiqlash kodi jo'natildi !", status=HTTP_200_OK)
-            response.set_cookie("verify", make_password(str(random_code)), max_age=300)
+            cache.set(email, str(random_code), timeout=300)
             return response
         elif user and user.is_active:
             return Response("Email oldin ro'yxatdan o'tgan !", status=HTTP_400_BAD_REQUEST)
@@ -80,9 +83,11 @@ class RegisterAPIView(CreateAPIView):
 class RegisterCheckAPIView(APIView):
     def post(self, request):
         data = request.data.copy()
-        verify_code = request.COOKIES.get('verify')
+        verify_code = cache.get(data.get('email'))
+        print(verify_code)
+        print(data.get('code'))
         if not verify_code:
-            return JsonResponse({"error": "Code expired!"})
+            return JsonResponse({"error": "Code expired!"}, status=HTTP_400_BAD_REQUEST)
         data['verify_code'] = verify_code
         s = RegisterCheckSerializer(data=data)
         if s.is_valid():

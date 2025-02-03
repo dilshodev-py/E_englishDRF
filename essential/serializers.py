@@ -29,4 +29,4 @@ class UserModelSerializer(ModelSerializer):
     point = IntegerField()
     class Meta:
         model = User
-        fields = 'full_name', 'point',
+        fields = 'fullname', 'point',
