@@ -16,7 +16,10 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /var/www/web
+            cd /var/www/web/E_englishDRF
+            git reset --hard origin/master
             git pull 
-            systemctl restart e_english.service
+            source /var/www/web/E_englishDRF/.venv/bin/activate
+            pip install -r requirements.txt
             systemctl restart nginx
+            systemctl restart e_english.service
