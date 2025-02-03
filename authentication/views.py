@@ -86,5 +86,6 @@ class RegisterCheckAPIView(APIView):
         data['verify_code'] = verify_code
         s = RegisterCheckSerializer(data=data)
         if s.is_valid():
-            return JsonResponse({"message": "Correct code!"}, status=HTTP_200_OK)
+            User.objects.filter(email=data.get('email')).update(is_active=True)
+            return JsonResponse({"message": "Registered!"}, status=HTTP_200_OK)
         return JsonResponse(s.errors, status=HTTP_400_BAD_REQUEST)

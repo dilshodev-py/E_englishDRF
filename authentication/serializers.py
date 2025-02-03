@@ -57,7 +57,7 @@ class RegisterSerializer(ModelSerializer):
             raise ValidationError("Password must contain at least one special character.")
         if not any(char.isdigit() for char in value):
             raise ValidationError("Password must contain at least one number.")
-        return value
+        return make_password(value)
 
 
 class ForgotPasswordSerializer(Serializer):

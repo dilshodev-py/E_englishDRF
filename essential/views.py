@@ -1,6 +1,7 @@
 from django.db.models import Sum
 from django.http import JsonResponse
 from drf_spectacular.utils import extend_schema
+from rest_framework.decorators import permission_classes
 from rest_framework.views import APIView
 
 from authentication.models import User
@@ -17,7 +18,7 @@ class LeaderBoardAPIView(APIView):
         over_user = None
         under_user = None
         around_user = None
-        if not request.user in top:
+        if request.user.is_authenticated and not request.user in top:
             for i in range(len(users)):
                 if users[i].id == request.user.id:
                     user = users[i]
