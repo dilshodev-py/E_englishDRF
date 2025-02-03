@@ -19,3 +19,4 @@ jobs:
             cd /var/www/web
             git pull 
             systemctl restart e_english.service
+            systemctl restart nginx
