@@ -129,4 +129,5 @@ cython_debug/
 .idea
 
 
-
+essential/migrations/*
+authentication/migrations/*
