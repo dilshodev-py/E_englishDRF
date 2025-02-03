@@ -8,5 +8,6 @@ urlpatterns = [
     path('leaderboard/', LeaderBoardAPIView.as_view()),
     path('books/', BookListAPIView.as_view()),
     path('units/', UniteListAPIView.as_view()),
-    path('random-quiz/',QuizView.as_view(), name='random-quiz')
+    path('random-quiz/',QuizView.as_view(), name='random-quiz'),
+    path('books/<int:book_id>/units/', UniteListAPIView.as_view()),
 ]
