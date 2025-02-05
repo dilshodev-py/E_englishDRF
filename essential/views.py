@@ -21,6 +21,7 @@ from .serializers import QuizRequestSerializer
 
 
 @extend_schema(tags=["Quiz"], request=QuizRequestSerializer)
+@permission_classes([IsAuthenticated])
 class QuizView(APIView):
     def post(self, request):
         serializer = QuizRequestSerializer(data=request.data)
@@ -101,6 +102,7 @@ class QuizView(APIView):
         required=False,
     )
 ])
+@permission_classes([IsAuthenticated])
 class LeaderBoardAPIView(APIView):
     def get(self, request):
         time = request.data.get('time', None)
@@ -157,6 +159,7 @@ class BookListAPIView(ListAPIView):
 
 @extend_schema(tags=['essential'])
 class UniteListAPIView(ListAPIView):
+    permission_classes = IsAuthenticated,
     serializer_class = UniteModelSerializer
 
     def get_queryset(self):
