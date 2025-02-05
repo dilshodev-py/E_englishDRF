@@ -157,5 +157,8 @@ class BookListAPIView(ListAPIView):
 
 @extend_schema(tags=['essential'])
 class UniteListAPIView(ListAPIView):
-    queryset = Unit.objects.all()
     serializer_class = UniteModelSerializer
+
+    def get_queryset(self):
+        book_id = self.kwargs.get("book_id")
+        return Unit.objects.filter(book_id=book_id)
