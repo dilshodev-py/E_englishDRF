@@ -1,0 +1,74 @@
+/etc/nginx/sites-available/e_english
+
+server {
+    listen       8003;
+    server_name  5.42.220.153;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+
+    location /static/ {
+        root /var/www/web/E_englishDRF;
+    }
+
+    location /media/ {
+        root /var/www/web/E_englishDRF;
+    }
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/var/www/web/E_englishDRF/falcon.sock;
+    }
+
+}
+
+
+
+
+
+/etc/systemd/system/e_english.service
+
+
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=root
+Group=www-data
+WorkingDirectory=/var/www/web/E_englishDRF
+ExecStart=/var/www/web/E_englishDRF/.venv/bin/gunicorn --workers 3 --bind unix:/var/www/web/E_englishDRF/falcon.sock root.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+systemctl start e_english.service
+systemctl enable e_english.service
+
+
+systemctl restart nginx
+
+
+systemctl start e_english.service
+systemctl enable e_english.service
+systemctl stop e_english.service
+systemctl restart e_english.service
+
+
+
+
+1. comp -> github, gitlab, bitbucket -> server
+
+2. comp -> server
+
+
+
+scp file root@IP:/var/www
+python3 manage.py runserver 0:8003
+
+
+
+/etc/nginx/sites-available/e_english
+ln -s /etc/nginx/sites-available/e_english /etc/nginx/sites-enabled/
+
+/etc/nginx/sites-enabled/

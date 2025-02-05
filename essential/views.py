@@ -1,10 +1,23 @@
-from django.db.models import Sum
+import random
+from datetime import timedelta
+
+from django.db.models import Sum, F
 from django.http import JsonResponse
+from django.utils.timezone import now
+from drf_spectacular.utils import extend_schema, OpenApiParameter
+from rest_framework import status
+from rest_framework.decorators import permission_classes
+from rest_framework.generics import ListAPIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.status import HTTP_400_BAD_REQUEST
 from drf_spectacular.utils import extend_schema
 from rest_framework.decorators import permission_classes, api_view
 from rest_framework.views import APIView
 
 from authentication.models import User
+from essential.serializers import BookModelSerializer, UniteModelSerializer
+from essential.serializers import UserModelSerializer
 from essential.serializers import UserModelSerializer, WordModelSerializer
 from django.shortcuts import render
 from drf_spectacular.utils import extend_schema
@@ -21,7 +34,8 @@ from rest_framework import status
 from .models import Book, Unit, Word
 from .serializers import QuizRequestSerializer
 
-@extend_schema(tags=["essential"], request=QuizRequestSerializer)
+
+@extend_schema(tags=["Quiz"], request=QuizRequestSerializer)
 class QuizView(APIView):
     def post(self, request):
         serializer = QuizRequestSerializer(data=request.data)
@@ -92,10 +106,37 @@ class QuizView(APIView):
             "options": self.get_options(word.en, True),
         }
 
-@extend_schema(tags=['leaderboard'])
+
+@extend_schema(tags=['leaderboard'], parameters=[
+    OpenApiParameter(
+        name="time",
+        description="",
+        type={"type": "string"},
+        enum=['daily', 'weekly', 'monthly'],
+        required=False,
+    )
+])
 class LeaderBoardAPIView(APIView):
     def get(self, request):
-        users = User.objects.annotate(point=Sum('points__point')).order_by('-point')
+        time = request.data.get('time', None)
+        if time:
+            timee = None
+            if time == 'daily':
+                timee = now() - timedelta(days=1)
+            if time == 'weekly':
+                timee = now() - timedelta(weeks=1)
+            if time == 'monthly':
+                timee = now() - timedelta(days=30)
+            if not timee:
+                return JsonResponse({"message": "Invalid time!"}, status=HTTP_400_BAD_REQUEST)
+            users = User.objects.annotate(
+                point=Sum('points__point', filter=F('points__created_at') > timee)
+            ).order_by('-point')
+        else:
+            users = User.objects.annotate(
+                point=Sum('points__point')
+            ).order_by('-point')
+
         top = users[:10]
         serialized_top = UserModelSerializer(instance=top, many=True).data
         user = None
@@ -117,14 +158,21 @@ class LeaderBoardAPIView(APIView):
             around_user = UserModelSerializer(instance=around_user, many=True).data
         return JsonResponse({"top": serialized_top, "around_user": around_user})
 
+
 @extend_schema(tags=['essential'])
 class BookListAPIView(ListAPIView):
+    permission_classes = IsAuthenticated,
     queryset = Book.objects.all()
     serializer_class = BookModelSerializer
+
+    # def get_permissions(self):
+    #     print(self.request.META.get('Authorization'))
+    #     return IsAuthenticated,
 
 
 @extend_schema(tags=['essential'])
 class UniteListAPIView(ListAPIView):
+    queryset = Unit.objects.all()
     serializer_class = UniteModelSerializer
 
     def get_queryset(self):
