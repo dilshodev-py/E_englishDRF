@@ -18,9 +18,11 @@ class TestQuizViewSet:
 
     @pytest.fixture
     def db(self):
-        Book.objects.create(name="Essential",image="images/books/essential.png",number=Book.NumberType.ONE)
-        Unit.objects.create(book_id=1,number=1,name="Introduction")
-        Word.objects.create(uz="Salom",en="Hello",pronunciation="həˈloʊ",type="noun",definition="A greeting or expression of goodwill",sentence="Hello, how are you?",image="images/words/hello.jpg",unit_id=1)
+        Book.objects.create(name="Essential", image="images/books/essential.png", number=Book.NumberType.ONE)
+        Unit.objects.create(book_id=1, number=1, name="Introduction")
+        Word.objects.create(uz="Salom", en="Hello", pronunciation="həˈloʊ", type="noun",
+                            definition="A greeting or expression of goodwill", sentence="Hello, how are you?",
+                            image="images/words/hello.jpg", unit_id=1)
 
         User.objects.create(email='t@gmail.com', password=make_password('1'), is_active=True)
         Book.objects.create(name='Book', number=1 )
