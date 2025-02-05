@@ -21,7 +21,7 @@ from .serializers import QuizRequestSerializer
 
 
 @extend_schema(tags=["Quiz"], request=QuizRequestSerializer)
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 class QuizView(APIView):
     def post(self, request):
         serializer = QuizRequestSerializer(data=request.data)

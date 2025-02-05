@@ -105,14 +105,14 @@ class TestUserViewSet:
         assert len(response.data) == 2
 
     def test_forgot_password_auth(self, client,db):
-        url = reverse('forgot-password')
+        url = reverse('forgot_password')
         data = {
             "email": "absaitovdev@gmail.com",
         }
         response = client.post(url, data)
         assert response.status_code == 200, "forgot password point : Bad request "
         code = cache.get('absaitovdev@gmail.com')
-        url = reverse('verify-otp')
+        url = reverse('forgot_password_check')
         data = {
             "code": code,
             "email": "absaitovdev@gmail.com",
@@ -120,7 +120,7 @@ class TestUserViewSet:
         response = client.post(url , data)
         assert response.status_code == 200 , 'forgot password check code Bad request '
 
-        url = reverse('reset-password')
+        url = reverse('reset_password')
         data = {
             "email": "absaitovdev@gmail.com",
             "password": "Test*123",
