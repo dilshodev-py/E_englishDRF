@@ -6,11 +6,12 @@ from authentication.views import ForgotPasswordAPIView, ForgotPasswordCheckAPIVi
     RegisterCheckAPIView
 
 urlpatterns = [
-    path('forgot-password', ForgotPasswordAPIView.as_view()),
-    path('verify-otp', ForgotPasswordCheckAPIView.as_view()),
-    path('auth/reset-password/', PasswordResetView.as_view()),
-    path('api/token/', TokenObtainPairView.as_view(parser_classes = [MultiPartParser , JSONParser]), name='token_obtain_pair'),
+    path('forgot-password', ForgotPasswordAPIView.as_view(),name='forgot_password'),
+    path('verify-otp', ForgotPasswordCheckAPIView.as_view(),name='forgot_password_check'),
+    path('auth/reset-password/', PasswordResetView.as_view(), name='reset_password'),
+    path('api/token/', TokenObtainPairView.as_view(parser_classes=[MultiPartParser, JSONParser]),
+         name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('register/', RegisterAPIView.as_view() , name='register'),
-    path('register/check', RegisterCheckAPIView.as_view() , name='register-check'),
+    path('register/', RegisterAPIView.as_view(), name='register'),
+    path('register/check', RegisterCheckAPIView.as_view(), name='register-check'),
 ]
