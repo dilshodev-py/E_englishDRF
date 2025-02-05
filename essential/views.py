@@ -167,8 +167,16 @@ class QuizResultView(CreateAPIView):
     serializer_class = QuizResultSerializer
 
     def create(self, request, *args, **kwargs):
-        request.data['user'] = request.user.pk
-        return super().create(request, *args, **kwargs)
+        data = {
+            "correct" : request.POST.get("correct"),
+            "unit" : request.POST.get("unit"),
+            "user" : request.user.pk
+        }
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 
