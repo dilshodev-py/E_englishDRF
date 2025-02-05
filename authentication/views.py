@@ -34,8 +34,9 @@ class ForgotPasswordAPIView(APIView):
         if s.is_valid():
             email = s.validated_data.get('email')
             code = randint(10000, 99999)
+            print(code)
             send_email.delay(to_send=email, code=code)
-            response = JsonResponse({"message": "Code send to your email!", "email": email}, status=HTTP_200_OK)
+            response = JsonResponse({"status": 200, "message": "Code send to your email!", "email": email}, status=HTTP_200_OK)
             cache.set(email, code, timeout=300)
             return response
         return JsonResponse(s.errors, status=HTTP_400_BAD_REQUEST)
@@ -47,11 +48,11 @@ class ForgotPasswordCheckAPIView(APIView):
         data = request.data.copy()
         verify_code = cache.get(data.get('email'))
         if not verify_code:
-            return JsonResponse({"error": "Code expired!"})
+            return JsonResponse({"error": "Code expired!"}, status=HTTP_400_BAD_REQUEST)
         data['verify_code'] = verify_code
         s = ForgotPasswordCheckSerializer(data=data)
         if s.is_valid():
-            return JsonResponse({"message": "Correct code!"}, status=HTTP_200_OK)
+            return JsonResponse({"status": 200, "message": "Correct code!"}, status=HTTP_200_OK)
         return JsonResponse(s.errors, status=HTTP_400_BAD_REQUEST)
 
 
@@ -62,17 +63,21 @@ class RegisterAPIView(CreateAPIView):
         user = User.objects.filter(email=request.data.get("email")).first()
         if serializer.is_valid() or (user and not user.is_active):
             if not user:
-                userr = serializer.save()
-                userr.is_active = False
-                userr.save()
+                u = serializer.save()
+                u.is_active = False
+                u.save()
             random_code = randint(10000, 99999)
             email = request.data.get("email")
             send_email.delay(email, random_code)
-            response = Response("Tasdiqlash kodi jo'natildi !", status=HTTP_200_OK)
+            response = JsonResponse({
+                "status": 200,
+                "message": "Tasdiqlash kodi jo'natildi!",
+                "data": None
+            }, status=HTTP_200_OK)
             cache.set(email, str(random_code), timeout=300)
             return response
         elif user and user.is_active:
-            return Response("Email oldin ro'yxatdan o'tgan !", status=HTTP_400_BAD_REQUEST)
+            return JsonResponse({"status": 400, "message": "Email oldin ro'yxatdan o'tgan !"}, status=HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
 
@@ -89,5 +94,5 @@ class RegisterCheckAPIView(APIView):
         s = RegisterCheckSerializer(data=data)
         if s.is_valid():
             User.objects.filter(email=data.get('email')).update(is_active=True)
-            return JsonResponse({"message": "Registered!"}, status=HTTP_200_OK)
+            return JsonResponse({"status": 200, "message": "Registered!"}, status=HTTP_200_OK)
         return JsonResponse(s.errors, status=HTTP_400_BAD_REQUEST)

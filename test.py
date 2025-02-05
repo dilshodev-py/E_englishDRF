@@ -113,3 +113,19 @@ M = 1000
 #             continue
 #
 # print(result)
+
+# str1 = input('s1')
+# str2 = input('s2')
+#
+# def dd(s1, s2):
+#     if s1 == s2:
+#         return True
+#     elif len(s1) != len(s2):
+#         return False
+#     for i in range(len(s1) - 1):
+#         if s1.count(s1[i]) != s1.count(s1[i]):
+#             return False
+#
+#     return True
+#
+# print(dd(str1, str2))

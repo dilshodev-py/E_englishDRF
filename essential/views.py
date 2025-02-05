@@ -6,7 +6,9 @@ from django.http import JsonResponse
 from django.utils.timezone import now
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework import status
+from rest_framework.decorators import permission_classes
 from rest_framework.generics import ListAPIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
@@ -144,8 +146,13 @@ class LeaderBoardAPIView(APIView):
 
 @extend_schema(tags=['essential'])
 class BookListAPIView(ListAPIView):
+    permission_classes = IsAuthenticated,
     queryset = Book.objects.all()
     serializer_class = BookModelSerializer
+
+    # def get_permissions(self):
+    #     print(self.request.META.get('Authorization'))
+    #     return IsAuthenticated,
 
 
 @extend_schema(tags=['essential'])
