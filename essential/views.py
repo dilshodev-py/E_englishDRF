@@ -10,11 +10,26 @@ from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST
+from drf_spectacular.utils import extend_schema
+from rest_framework.decorators import permission_classes, api_view
 from rest_framework.views import APIView
 
 from authentication.models import User
 from essential.serializers import BookModelSerializer, UniteModelSerializer
 from essential.serializers import UserModelSerializer
+from essential.serializers import UserModelSerializer, WordModelSerializer
+from django.shortcuts import render
+from drf_spectacular.utils import extend_schema
+from rest_framework.generics import ListAPIView
+
+from essential.models import Book, Unit, QuizResult
+from essential.serializers import BookModelSerializer, UniteModelSerializer
+
+import random
+from drf_spectacular.utils import extend_schema
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 from .models import Book, Unit, Word
 from .serializers import QuizRequestSerializer
 
@@ -158,3 +173,14 @@ class BookListAPIView(ListAPIView):
 class UniteListAPIView(ListAPIView):
     queryset = Unit.objects.all()
     serializer_class = UniteModelSerializer
+
+    def get_queryset(self):
+        book_id = self.kwargs.get("book_id")
+        return Unit.objects.filter(book_id=book_id)
+@api_view(['GET'])
+@extend_schema(tags=['essential'])
+def get_words_apiview(request,unit_id):
+    words = Word.objects.filter(unit_id=unit_id)
+    already_try=QuizResult.objects.filter(unit_id=unit_id).exists()
+    serializer=WordModelSerializer(instance=words,context={'already_try':already_try},many=True)
+    return JsonResponse(serializer.data, safe=False)

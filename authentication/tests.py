@@ -7,6 +7,7 @@ from rest_framework.test import APIClient
 from django.urls import reverse
 from authentication.models import User
 
+
 @pytest.mark.django_db
 class TestUserViewSet:
 
@@ -71,6 +72,9 @@ class TestUserViewSet:
         }
         response = client.post(url, data)
         assert response.status_code == 200 , 'reset password Bad request '
+
+
+
 
 
     # def test_retrieve_book(self, client, db):

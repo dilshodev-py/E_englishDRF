@@ -41,7 +41,7 @@ OZODBEK:
 
     GET /quiz/
 
-DAVRON:
+🟢️DAVRON:
      GET /words/<unit_id>
             check : user oldin unit_id bo'yicha try qilganganligini tekshirish -> try:True
             response : uz , en , definition , type , image , unit_id
