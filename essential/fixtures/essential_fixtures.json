@@ -344,7 +344,7 @@
             "definition": "Of considerable size",
             "sentence": "This is a big house.",
             "image": "images/words/big.jpg",
-            "unit": 4
+            "unit": 1
         }
     },
     {
@@ -358,7 +358,7 @@
             "definition": "Of a size that is less than normal",
             "sentence": "She has a small bag.",
             "image": "images/words/small.jpg",
-            "unit": 4
+            "unit": 2
         }
     },
     {
@@ -372,7 +372,7 @@
             "definition": "Arousing curiosity or interest",
             "sentence": "This book is very interesting.",
             "image": "images/words/interesting.jpg",
-            "unit": 4
+            "unit": 1
         }
     },
     {
@@ -386,7 +386,7 @@
             "definition": "Requiring much effort or skill",
             "sentence": "This task is difficult.",
             "image": "images/words/difficult.jpg",
-            "unit": 4
+            "unit": 1
         }
     },
     {
@@ -400,7 +400,7 @@
             "definition": "Achieved without great effort",
             "sentence": "This question is easy.",
             "image": "images/words/easy.jpg",
-            "unit": 4
+            "unit": 1
         }
     },
     {
@@ -414,7 +414,92 @@
             "definition": "At a slow speed",
             "sentence": "He walks slowly.",
             "image": "images/words/slowly.jpg",
-            "unit": 4
+            "unit": 1
         }
+    },
+    {
+    "model": "essential.word",
+    "pk": 27,
+    "fields": {
+        "uz": "muloqot",
+        "en": "communication",
+        "pronunciation": "kəˌmjuː.nɪˈkeɪ.ʃən",
+        "type": "noun",
+        "definition": "The act of sharing information, thoughts, or feelings with someone",
+        "sentence": "Effective communication is essential in teamwork.",
+        "image": "images/words/communication.jpg",
+        "unit": 1
     }
+},
+{
+    "model": "essential.word",
+    "pk": 28,
+    "fields": {
+        "uz": "shoshilmoq",
+        "en": "hurry",
+        "pronunciation": "ˈhʌr.i",
+        "type": "verb",
+        "definition": "To move or act with speed",
+        "sentence": "Please hurry, or we'll miss the train.",
+        "image": "images/words/hurry.jpg",
+        "unit": 1
+    }
+},
+{
+    "model": "essential.word",
+    "pk": 29,
+    "fields": {
+        "uz": "yoqimli",
+        "en": "pleasant",
+        "pronunciation": "ˈplez.ənt",
+        "type": "adjective",
+        "definition": "Giving a feeling of enjoyment or satisfaction",
+        "sentence": "It was a pleasant day at the beach.",
+        "image": "images/words/pleasant.jpg",
+        "unit": 1
+    }
+},
+{
+    "model": "essential.word",
+    "pk": 30,
+    "fields": {
+        "uz": "uzoq",
+        "en": "far",
+        "pronunciation": "fɑːr",
+        "type": "adverb",
+        "definition": "At or to a great distance",
+        "sentence": "The nearest store is far from here.",
+        "image": "images/words/far.jpg",
+        "unit": 1
+    }
+},
+{
+    "model": "essential.word",
+    "pk": 31,
+    "fields": {
+        "uz": "do'stlik",
+        "en": "friendship",
+        "pronunciation": "ˈfrɛnd.ʃɪp",
+        "type": "noun",
+        "definition": "A relationship between friends",
+        "sentence": "Their friendship has lasted for years.",
+        "image": "images/words/friendship.jpg",
+        "unit": 1
+    }
+},
+{
+    "model": "essential.word",
+    "pk": 32,
+    "fields": {
+        "uz": "ilm",
+        "en": "knowledge",
+        "pronunciation": "ˈnɒl.ɪdʒ",
+        "type": "noun",
+        "definition": "Information, understanding, and skills gained through education or experience",
+        "sentence": "Knowledge is power.",
+        "image": "images/words/knowledge.jpg",
+        "unit": 1
+    }
+}
+
 ]

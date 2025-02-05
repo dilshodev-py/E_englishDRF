@@ -1,16 +1,16 @@
 from django.db.models import Sum
 from django.http import JsonResponse
 from drf_spectacular.utils import extend_schema
-from rest_framework.decorators import permission_classes
+from rest_framework.decorators import permission_classes, api_view
 from rest_framework.views import APIView
 
 from authentication.models import User
-from essential.serializers import UserModelSerializer
+from essential.serializers import UserModelSerializer, WordModelSerializer
 from django.shortcuts import render
 from drf_spectacular.utils import extend_schema
 from rest_framework.generics import ListAPIView
 
-from essential.models import Book, Unit
+from essential.models import Book, Unit, QuizResult
 from essential.serializers import BookModelSerializer, UniteModelSerializer
 
 import random
@@ -130,3 +130,10 @@ class UniteListAPIView(ListAPIView):
     def get_queryset(self):
         book_id = self.kwargs.get("book_id")
         return Unit.objects.filter(book_id=book_id)
+@api_view(['GET'])
+@extend_schema(tags=['essential'])
+def get_words_apiview(request,unit_id):
+    words = Word.objects.filter(unit_id=unit_id)
+    already_try=QuizResult.objects.filter(unit_id=unit_id).exists()
+    serializer=WordModelSerializer(instance=words,context={'already_try':already_try},many=True)
+    return JsonResponse(serializer.data, safe=False)
