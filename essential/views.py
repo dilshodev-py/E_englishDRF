@@ -7,6 +7,8 @@ from django.utils.timezone import now
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework import status
 from rest_framework.decorators import permission_classes, api_view
+from rest_framework.generics import ListAPIView, CreateAPIView
+from rest_framework.decorators import permission_classes, api_view
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -14,6 +16,7 @@ from rest_framework.status import HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
 
 from authentication.models import User
+from essential.serializers import BookModelSerializer, UniteModelSerializer, QuizResultSerializer
 from essential.serializers import BookModelSerializer, UniteModelSerializer, WordModelSerializer
 from essential.serializers import UserModelSerializer
 from .models import Book, Unit, Word, QuizResult
@@ -164,6 +167,27 @@ class UniteListAPIView(ListAPIView):
     def get_queryset(self):
         book_id = self.kwargs.get("book_id")
         return Unit.objects.filter(book_id=book_id)
+
+
+@extend_schema(tags=['quiz'])
+class QuizResultView(CreateAPIView):
+    queryset = QuizResult.objects.all()
+    serializer_class = QuizResultSerializer
+
+    def create(self, request, *args, **kwargs):
+        data = {
+            "correct" : request.POST.get("correct"),
+            "unit" : request.POST.get("unit"),
+            "user" : request.user.pk
+        }
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+
+
 
 
 @api_view(['GET'])
