@@ -10,5 +10,5 @@ urlpatterns = [
     path('books/', BookListAPIView.as_view()),
     path('random-quiz/',QuizView.as_view(), name='random-quiz'),
     path('books/<int:book_id>/units/', UniteListAPIView.as_view()),
-    path('words/<unit_id>', views.get_words_apiview),
+    path('words/<unit_id>', views.get_words_apiview,name='words'),
 ]

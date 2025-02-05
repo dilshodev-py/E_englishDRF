@@ -184,4 +184,4 @@ def get_words_apiview(request,unit_id):
     words = Word.objects.filter(unit_id=unit_id)
     already_try=QuizResult.objects.filter(unit_id=unit_id).exists()
     serializer=WordModelSerializer(instance=words,context={'already_try':already_try},many=True)
-    return JsonResponse(serializer.data, safe=False)
+    return JsonResponse(serializer.data,status=status.HTTP_200_OK,safe=False)
