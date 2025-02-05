@@ -7,16 +7,16 @@ from django.utils.timezone import now
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework import status
 from rest_framework.decorators import permission_classes
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
 
 from authentication.models import User
-from essential.serializers import BookModelSerializer, UniteModelSerializer
+from essential.serializers import BookModelSerializer, UniteModelSerializer, QuizResultSerializer
 from essential.serializers import UserModelSerializer
-from .models import Book, Unit, Word
+from .models import Book, Unit, Word, QuizResult
 from .serializers import QuizRequestSerializer
 
 
@@ -159,3 +159,16 @@ class BookListAPIView(ListAPIView):
 class UniteListAPIView(ListAPIView):
     queryset = Unit.objects.all()
     serializer_class = UniteModelSerializer
+
+
+@extend_schema(tags=['quiz'])
+class QuizResultView(CreateAPIView):
+    queryset = QuizResult.objects.all()
+    serializer_class = QuizResultSerializer
+
+    def create(self, request, *args, **kwargs):
+        request.data['user'] = request.user.pk
+        return super().create(request, *args, **kwargs)
+
+
+
