@@ -48,6 +48,31 @@ class TestUserViewSet:
         assert response.status_code == 200
         assert len(response.data) == 2
 
+    def test_forgot_password_auth(self, client,db):
+        url = reverse('forgot-password')
+        data = {
+            "email": "absaitovdev@gmail.com",
+        }
+        response = client.post(url, data)
+        assert response.status_code == 200, "forgot password point : Bad request "
+        code = cache.get('absaitovdev@gmail.com')
+        url = reverse('verify-otp')
+        data = {
+            "code": code,
+            "email": "absaitovdev@gmail.com",
+        }
+        response = client.post(url , data)
+        assert response.status_code == 200 , 'forgot password check code Bad request '
+
+        url = reverse('reset-password')
+        data = {
+            "email": "absaitovdev@gmail.com",
+            "password": "Test*123",
+        }
+        response = client.post(url, data)
+        assert response.status_code == 200 , 'reset password Bad request '
+
+
     # def test_retrieve_book(self, client, db):
     #     url = reverse('category-detail', args=[1])
     #     response = client.get(url)
