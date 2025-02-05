@@ -1,6 +1,6 @@
 from django.urls import path
 
-from essential.views import LeaderBoardAPIView
+from essential.views import LeaderBoardAPIView, QuizResultView
 from essential.views import BookListAPIView, UniteListAPIView
 from essential.views import QuizView
 
@@ -9,4 +9,5 @@ urlpatterns = [
     path('books/', BookListAPIView.as_view()),
     path('random-quiz/',QuizView.as_view(), name='random-quiz'),
     path('books/<int:book_id>/units/', UniteListAPIView.as_view()),
+    path('quiz/result/', QuizResultView.as_view()),
 ]

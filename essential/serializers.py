@@ -2,7 +2,7 @@ from rest_framework.fields import IntegerField
 from rest_framework.serializers import ModelSerializer
 
 from authentication.models import User
-from essential.models import Book, Unit
+from essential.models import Book, Unit, QuizResult
 from rest_framework import serializers
 
 class QuizRequestSerializer(serializers.Serializer):
@@ -30,3 +30,9 @@ class UserModelSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = 'fullname', 'point',
+
+
+class QuizResultSerializer(ModelSerializer):
+    class Meta:
+        model = QuizResult
+        fields = ['id', 'correct', 'user', 'unit', 'created_at']

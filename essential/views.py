@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.db.models import Sum
 from django.http import JsonResponse
 from drf_spectacular.utils import extend_schema
@@ -5,12 +6,12 @@ from rest_framework.decorators import permission_classes
 from rest_framework.views import APIView
 
 from authentication.models import User
-from essential.serializers import UserModelSerializer
+from essential.serializers import UserModelSerializer, QuizResultSerializer
 from django.shortcuts import render
 from drf_spectacular.utils import extend_schema
 from rest_framework.generics import ListAPIView
 
-from essential.models import Book, Unit
+from essential.models import Book, Unit, QuizResult
 from essential.serializers import BookModelSerializer, UniteModelSerializer
 
 import random
@@ -130,3 +131,33 @@ class UniteListAPIView(ListAPIView):
     def get_queryset(self):
         book_id = self.kwargs.get("book_id")
         return Unit.objects.filter(book_id=book_id)
+
+
+@extend_schema(tags=['quiz'])
+class QuizResultView(APIView):
+    def post(self, request):
+        correct = request.data.get("correct")
+        incorrect = request.data.get("incorrect")
+        unit_id = request.data.get("unit_id")
+        user = request.user
+
+        if correct is None or incorrect is None or unit_id is None:
+            return Response({"error": "All fields are required."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            unit = Unit.objects.get(id=unit_id)
+        except Unit.DoesNotExist:
+            return Response({"error": "Unit not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        with transaction.atomic():
+            user.point += int(correct)
+            user.save()
+
+            quiz_result = QuizResult.objects.create(
+                correct=correct,
+                user=user,
+                unit=unit
+            )
+
+        return Response({"message": "Accepted!", "quiz_result": QuizResultSerializer(quiz_result).data},
+                        status=status.HTTP_201_CREATED)
