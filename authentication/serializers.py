@@ -97,7 +97,7 @@ class ForgotPasswordCheckSerializer(Serializer):
         return value
 
     def validate_code(self, value):
-        if not check_password(str(value), self.initial_data.get('verify_code')):
+        if str(value) != str(self.initial_data.get('verify_code')):
             raise ValidationError("Incorrect code!")
         return value
 
