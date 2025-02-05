@@ -1,0 +1,26 @@
+name: Drf P26 CI/CD Deployment
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+       - name: executing remote ssh commands using ssh-key
+         uses: appleboy/ssh-action@v0.1.10
+         with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /var/www/web/E_englishDRF
+            git reset --hard origin/master
+            git pull 
+            source /var/www/web/E_englishDRF/.venv/bin/activate
+            pip install -r requirements.txt
+            make mig
+            systemctl restart nginx
+            systemctl restart e_english.service

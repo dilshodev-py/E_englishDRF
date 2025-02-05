@@ -34,6 +34,7 @@ class Word(Model):
         VERB = 'verb' , 'Verb'
         ADJECTIVE = 'adjective' , 'Adjective'
         ADVERB = 'adverb' , 'Adverb'
+
     uz = CharField(max_length=255)
     en = CharField(max_length=255)
     pronunciation = CharField(max_length=255)
@@ -46,4 +47,11 @@ class Word(Model):
 class Point(Model):
     user = ForeignKey('authentication.User', CASCADE, related_name='points')
     point = PositiveSmallIntegerField()
+    created_at = DateTimeField(auto_now_add=True)
+
+
+class QuizResult(Model):
+    correct = SmallIntegerField()
+    user = ForeignKey('authentication.User' , CASCADE , related_name="results")
+    unit = ForeignKey('essential.Unit' , CASCADE , related_name="results")
     created_at = DateTimeField(auto_now_add=True)

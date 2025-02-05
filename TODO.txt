@@ -1,8 +1,14 @@
 🟢️ ️🔴  ✅
 
+MADINA:
+    POST /quiz/result (natijani saqlab qo'yish endpointi)
+        request : correct , incorrect , unit_id
+        request.user.point += correct
+        response : 201 , accepted!
+
+
 ABDUVORIS:
     random son generate qilinadi va email ga habar yuboradigan function yozilsin !
-    GET /words/<unit_id>
 
 
 DONIYOR:
@@ -15,12 +21,14 @@ DONIYOR:
     GET /leaderboard/weekly ✅
     GET /leaderboard/monthly ✅
 
+    trigger
+
 
 
 BEKZOD:
     POST /auth/reset-password
 
-BEHRUZ: 🟢️
+BEHRUZ:
     POST : /auth/sign-up  ✅
     add CELERY config  ✅
 
@@ -33,8 +41,13 @@ OZODBEK:
 
     GET /quiz/
 
+DAVRON:
+     GET /words/<unit_id>
+            check : user oldin unit_id bo'yicha try qilganganligini tekshirish -> try:True
+            response : uz , en , definition , type , image , unit_id
 
-🟢️ELMUROD:
+
+ELMUROD:
     2. POST /random-quiz/ ✅
         a. I give unit numbers
         b. I give question numbers
@@ -47,3 +60,5 @@ OZODBEK:
          }
     qaytish: 1 chi id li kitobga tegishli 1 2 chi idli unitlardan random 2 ta test tuzib qaytaradi
     question_type : ["uz_to_en", "en_to_uz", "definition", "sentence"]
+
+

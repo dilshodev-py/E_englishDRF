@@ -131,6 +131,3 @@ cython_debug/
 
 essential/migrations/*
 authentication/migrations/*
-
-
-

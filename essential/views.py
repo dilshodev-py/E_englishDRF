@@ -102,7 +102,6 @@ class QuizView(APIView):
         required=False,
     )
 ])
-@permission_classes([IsAuthenticated])
 class LeaderBoardAPIView(APIView):
     def get(self, request):
         time = request.data.get('time', None)
