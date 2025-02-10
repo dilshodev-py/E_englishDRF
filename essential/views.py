@@ -6,7 +6,9 @@ from django.http import JsonResponse
 from django.utils.timezone import now
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework import status
-from rest_framework.decorators import permission_classes
+from rest_framework.decorators import permission_classes, api_view
+from rest_framework.generics import ListAPIView, CreateAPIView
+from rest_framework.decorators import permission_classes, api_view
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -14,13 +16,15 @@ from rest_framework.status import HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
 
 from authentication.models import User
-from essential.serializers import BookModelSerializer, UniteModelSerializer
+from essential.serializers import BookModelSerializer, UniteModelSerializer, QuizResultSerializer
+from essential.serializers import BookModelSerializer, UniteModelSerializer, WordModelSerializer
 from essential.serializers import UserModelSerializer
-from .models import Book, Unit, Word
+from .models import Book, Unit, Word, QuizResult
 from .serializers import QuizRequestSerializer
 
 
 @extend_schema(tags=["Quiz"], request=QuizRequestSerializer)
+# @permission_classes([IsAuthenticated])
 class QuizView(APIView):
     def post(self, request):
         serializer = QuizRequestSerializer(data=request.data)
@@ -157,5 +161,39 @@ class BookListAPIView(ListAPIView):
 
 @extend_schema(tags=['essential'])
 class UniteListAPIView(ListAPIView):
-    queryset = Unit.objects.all()
+    permission_classes = IsAuthenticated,
     serializer_class = UniteModelSerializer
+
+    def get_queryset(self):
+        book_id = self.kwargs.get("book_id")
+        return Unit.objects.filter(book_id=book_id)
+
+
+@extend_schema(tags=['quiz'])
+class QuizResultView(CreateAPIView):
+    queryset = QuizResult.objects.all()
+    serializer_class = QuizResultSerializer
+
+    def create(self, request, *args, **kwargs):
+        data = {
+            "correct" : request.POST.get("correct"),
+            "unit" : request.POST.get("unit"),
+            "user" : request.user.pk
+        }
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+
+
+
+
+@api_view(['GET'])
+@extend_schema(tags=['essential'])
+def get_words_apiview(request,unit_id):
+    words = Word.objects.filter(unit_id=unit_id)
+    already_try=QuizResult.objects.filter(unit_id=unit_id).exists()
+    serializer=WordModelSerializer(instance=words,context={'already_try':already_try},many=True)
+    return JsonResponse(serializer.data, safe=False)

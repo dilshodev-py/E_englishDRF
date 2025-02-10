@@ -22,7 +22,7 @@ class PasswordResetView(APIView):
         serializer = PasswordResetSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({"message": "Parol yangilandi!"}, status=status.HTTP_200_OK)
+            return Response({"status": 200, "message": "Parol yangilandi!"}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -46,13 +46,14 @@ class ForgotPasswordAPIView(APIView):
 class ForgotPasswordCheckAPIView(APIView):
     def post(self, request):
         data = request.data.copy()
-        verify_code = cache.get(data.get('email'))
+        email = data.get('email')
+        verify_code = cache.get(email)
         if not verify_code:
             return JsonResponse({"error": "Code expired!"}, status=HTTP_400_BAD_REQUEST)
         data['verify_code'] = verify_code
         s = ForgotPasswordCheckSerializer(data=data)
         if s.is_valid():
-            return JsonResponse({"status": 200, "message": "Correct code!"}, status=HTTP_200_OK)
+            return JsonResponse({"status": 200, "message": "Correct code!", "email": email}, status=HTTP_200_OK)
         return JsonResponse(s.errors, status=HTTP_400_BAD_REQUEST)
 
 
