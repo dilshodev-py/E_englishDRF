@@ -17,11 +17,8 @@ def send_email(to_send, code):
     message['From'] = email
     message['To'] = to_send
 
-
     part2 = MIMEText(f"Verify code: {code}")
     message.attach(part2)
-
-
 
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
         server.login(email, password)
@@ -30,5 +27,3 @@ def send_email(to_send, code):
     return f"Success to email {to_send}!"
     # except Exception as e:
     #     print(f'Hatolik: {e}')
-
-

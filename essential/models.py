@@ -1,7 +1,8 @@
+
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models import Model, ImageField, CharField, IntegerField, IntegerChoices, ForeignKey, CASCADE, \
-    SmallIntegerField, DecimalField, TextChoices
+    SmallIntegerField, TextChoices
 from django.db.models.fields import PositiveSmallIntegerField, DateTimeField
 
 
@@ -23,8 +24,8 @@ class Book(Model):
 
 
 class Unit(Model):
-    book = ForeignKey('essential.Book', CASCADE, related_name='units')
-    number = SmallIntegerField(validators=[MaxValueValidator(30), MinValueValidator(1)])
+    book = ForeignKey('essential.Book' , CASCADE , related_name='units')
+    number = SmallIntegerField(validators=[MaxValueValidator(30) , MinValueValidator(1)])
     name = CharField(max_length=255)
 
 
@@ -39,11 +40,11 @@ class Word(Model):
     uz = CharField(max_length=255)
     en = CharField(max_length=255)
     pronunciation = CharField(max_length=255)
-    type = CharField(max_length=255, choices=WorkType)
+    type = CharField(max_length=255 , choices=WorkType)
     definition = CharField(max_length=400)
     sentence = CharField(max_length=500)
     image = ImageField(upload_to='images/words/')
-    unit = ForeignKey('essential.Unit', CASCADE, related_name='words')
+    unit = ForeignKey('essential.Unit' , CASCADE , related_name='words')
 
 
 class Point(Model):

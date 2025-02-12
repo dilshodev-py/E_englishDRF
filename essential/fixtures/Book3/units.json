@@ -1,0 +1,272 @@
+[
+    {
+        "model": "essential.Unit",
+        "pk": 61,
+        "fields": {
+            "book": 3,
+            "number": 1,
+            "name": "The Real St. Nick"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 62,
+        "fields": {
+            "book": 3,
+            "number": 2,
+            "name": "The Shepherd and the Wild Sheep"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 63,
+        "fields": {
+            "book": 3,
+            "number": 3,
+            "name": "The Boy and his Sled"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 64,
+        "fields": {
+            "book": 3,
+            "number": 4,
+            "name": "Tiny Tina"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 65,
+        "fields": {
+            "book": 3,
+            "number": 5,
+            "name": "Trick-or-treat!"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 66,
+        "fields": {
+            "book": 3,
+            "number": 6,
+            "name": "The Senator and the Worm"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 67,
+        "fields": {
+            "book": 3,
+            "number": 7,
+            "name": "Patsy Ann"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 68,
+        "fields": {
+            "book": 3,
+            "number": 8,
+            "name": "The Anniversary Gift"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 69,
+        "fields": {
+            "book": 3,
+            "number": 9,
+            "name": "Dalton vs. the Bully"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 70,
+        "fields": {
+            "book": 3,
+            "number": 10,
+            "name": "Anna the Babysitter"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 71,
+        "fields": {
+            "book": 3,
+            "number": 11,
+            "name": "Peter and the Dwarf"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 72,
+        "fields": {
+            "book": 3,
+            "number": 12,
+            "name": "The Ice Cream Cone Explosion"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 73,
+        "fields": {
+            "book": 3,
+            "number": 13,
+            "name": "Sheriff Dan"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 74,
+        "fields": {
+            "book": 3,
+            "number": 14,
+            "name": "The Helpful Apprentice"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 75,
+        "fields": {
+            "book": 3,
+            "number": 15,
+            "name": "Why Monkey Has No Home"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 76,
+        "fields": {
+            "book": 3,
+            "number": 16,
+            "name": "Matthew Learns a Lesson"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 77,
+        "fields": {
+            "book": 3,
+            "number": 17,
+            "name": "The Magic Cup"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 78,
+        "fields": {
+            "book": 3,
+            "number": 18,
+            "name": "The Knight’s Plan"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 79,
+        "fields": {
+            "book": 3,
+            "number": 19,
+            "name": "The Magic Pear Tree"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 80,
+        "fields": {
+            "book": 3,
+            "number": 20,
+            "name": "Little Wolf and Mother Wolf"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 81,
+        "fields": {
+            "book": 3,
+            "number": 21,
+            "name": "The Old Man and the Three Young Men"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 82,
+        "fields": {
+            "book": 3,
+            "number": 22,
+            "name": "The Circus"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 83,
+        "fields": {
+            "book": 3,
+            "number": 23,
+            "name": "Lazy Hans"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 84,
+        "fields": {
+            "book": 3,
+            "number": 24,
+            "name": "The Bremen Town Musicians"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 85,
+        "fields": {
+            "book": 3,
+            "number": 25,
+            "name": "How Did Greenland Get Its Name?"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 86,
+        "fields": {
+            "book": 3,
+            "number": 26,
+            "name": "Everyone is Special"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 87,
+        "fields": {
+            "book": 3,
+            "number": 27,
+            "name": "Pizarro and the Inca Gold"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 88,
+        "fields": {
+            "book": 3,
+            "number": 28,
+            "name": "The Boy Who Saved the Town"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 89,
+        "fields": {
+            "book": 3,
+            "number": 29,
+            "name": "An Interesting Life"
+        }
+    },
+    {
+        "model": "essential.Unit",
+        "pk": 90,
+        "fields": {
+            "book": 3,
+            "number": 30,
+            "name": "The Kitten and the Caterpillar"
+        }
+    }
+]
