@@ -1,0 +1,272 @@
+[
+  {
+    "model": "essential.unit",
+    "pk": 31,
+    "fields": {
+      "book": 2,
+      "number": 1,
+      "name": "The Twelve Months"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 32,
+    "fields": {
+      "book": 2,
+      "number": 2,
+      "name": "The Dragon"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 33,
+    "fields": {
+      "book": 2,
+      "number": 3,
+      "name": "The Battle of Thermopylae"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 34,
+    "fields": {
+      "book": 2,
+      "number": 4,
+      "name": "The Deer and His Image"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 35,
+    "fields": {
+      "book": 2,
+      "number": 5,
+      "name": "May 29,1953"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 36,
+    "fields": {
+      "book": 2,
+      "number": 6,
+      "name": "The Frog Prince"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 37,
+    "fields": {
+      "book": 2,
+      "number": 7,
+      "name": "A Beautiful Bird"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 38,
+    "fields": {
+      "book": 2,
+      "number": 8,
+      "name": "Tricky Turtle"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 39,
+    "fields": {
+      "book": 2,
+      "number": 9,
+      "name": "The Tale of Bartelby O’Boyle"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 40,
+    "fields": {
+      "book": 2,
+      "number": 10,
+      "name": "Blackbeard"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 41,
+    "fields": {
+      "book": 2,
+      "number": 11,
+      "name": "Dinosaur Drawings"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 42,
+    "fields": {
+      "book": 2,
+      "number": 12,
+      "name": "The Mean Chef"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 43,
+    "fields": {
+      "book": 2,
+      "number": 13,
+      "name": "The Cat and the Fox"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 44,
+    "fields": {
+      "book": 2,
+      "number": 14,
+      "name": "The Good Student"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 45,
+    "fields": {
+      "book": 2,
+      "number": 15,
+      "name": "The Lucky Knife"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 46,
+    "fields": {
+      "book": 2,
+      "number": 16,
+      "name": "Prince Sam"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 47,
+    "fields": {
+      "book": 2,
+      "number": 17,
+      "name": "Henry Ford’s Famous Car"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 48,
+    "fields": {
+      "book": 2,
+      "number": 18,
+      "name": "The Priest"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 49,
+    "fields": {
+      "book": 2,
+      "number": 19,
+      "name": "Mrs. May and the Green Girl"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 50,
+    "fields": {
+      "book": 2,
+      "number": 20,
+      "name": "Albert Einstein"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 51,
+    "fields": {
+      "book": 2,
+      "number": 21,
+      "name": "From the Earth to the Stars"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 52,
+    "fields": {
+      "book": 2,
+      "number": 22,
+      "name": "The Farm Festival"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 53,
+    "fields": {
+      "book": 2,
+      "number": 23,
+      "name": "The Clever Thief"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 54,
+    "fields": {
+      "book": 2,
+      "number": 24,
+      "name": "The Doctor’s Cure"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 55,
+    "fields": {
+      "book": 2,
+      "number": 25,
+      "name": "The Criminal"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 56,
+    "fields": {
+      "book": 2,
+      "number": 26,
+      "name": "The Two Captains"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 57,
+    "fields": {
+      "book": 2,
+      "number": 27,
+      "name": "The Duke and the Minister"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 58,
+    "fields": {
+      "book": 2,
+      "number": 28,
+      "name": "The Fisherman"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 59,
+    "fields": {
+      "book": 2,
+      "number": 29,
+      "name": "Osiris and the Nile"
+    }
+  },
+  {
+    "model": "essential.unit",
+    "pk": 60,
+    "fields": {
+      "book": 2,
+      "number": 30,
+      "name": "The Taxi Driver"
+    }
+  }
+]

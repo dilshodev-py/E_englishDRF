@@ -1,0 +1,11 @@
+[
+  {
+    "model": "essential.book",
+    "pk": 2,
+    "fields": {
+      "name": "Essential",
+      "image": "book_2.jpg",
+      "number": 2
+    }
+  }
+]
